@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Show{% endblock %}
+
+{% block body %}
+    {{ carInfo.name }}
+    {{ carInfo.model }}
+    <a href="{{ path('app_car_booking', {id: carInfo.id}) }}">Book this car</a>
+{% endblock %}
