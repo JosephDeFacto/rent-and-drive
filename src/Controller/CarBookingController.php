@@ -46,7 +46,7 @@ class CarBookingController extends AbstractController
 
             $this->addFlash('success', 'Car successfully booked!');
 
-            return $this->redirectToRoute('app_car');
+            return $this->redirectToRoute('app_cars');
         }
 
         return $this->render('car_booking/index.html.twig', [
