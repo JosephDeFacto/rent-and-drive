@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
+
 /**
  * @ORM\Entity(repositoryClass=CarRepository::class)
  */
@@ -33,6 +34,18 @@ class Car
      * @ORM\OneToMany(targetEntity=Booking::class, mappedBy="car")
      */
     private $bookings;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $imagePath;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=VehicleType::class, inversedBy="cars", fetch="EAGER")
+     * @ORM\JoinColumn(name="vehicle_type_id", referencedColumnName="id")
+     */
+    private $vehicleType;
+
 
     public function __construct()
     {
@@ -100,6 +113,30 @@ class Car
                 $booking->setCar(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getImagePath(): ?string
+    {
+        return $this->imagePath;
+    }
+
+    public function setImagePath(?string $imagePath): self
+    {
+        $this->imagePath = $imagePath;
+
+        return $this;
+    }
+
+    public function getVehicleType(): ?VehicleType
+    {
+        return $this->vehicleType;
+    }
+
+    public function setVehicleType(?VehicleType $vehicleType): self
+    {
+        $this->vehicleType = $vehicleType;
 
         return $this;
     }
