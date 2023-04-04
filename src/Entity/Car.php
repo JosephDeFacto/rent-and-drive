@@ -46,6 +46,11 @@ class Car
      */
     private $vehicleType;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Brand::class, inversedBy="cars")
+     */
+    private $brand;
+
 
     public function __construct()
     {
@@ -137,6 +142,18 @@ class Car
     public function setVehicleType(?VehicleType $vehicleType): self
     {
         $this->vehicleType = $vehicleType;
+
+        return $this;
+    }
+
+    public function getBrand(): ?Brand
+    {
+        return $this->brand;
+    }
+
+    public function setBrand(?Brand $brand): self
+    {
+        $this->brand = $brand;
 
         return $this;
     }

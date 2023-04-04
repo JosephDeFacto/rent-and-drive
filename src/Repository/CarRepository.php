@@ -39,6 +39,19 @@ class CarRepository extends ServiceEntityRepository
         }
     }
 
+    public function filterWithOr($vehicleType = null, $brand = null): array
+    {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.vehicleType = :vehicleType')
+            ->orWhere('c.brand = :brand')
+            ->setParameter('vehicleType', $vehicleType)
+            ->setParameter('brand', $brand)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+
 //    /**
 //     * @return Car[] Returns an array of Car objects
 //     */

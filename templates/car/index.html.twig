@@ -3,69 +3,102 @@
 {% block title %}Cars{% endblock %}
 
 {% block body %}
-
     <div class="products-content-main">
-
-        <span class="filter-selection-info">Select Car by Type: </span>
-        <form id="products-form">
-            <div class="products-select">
-                <select name="vehicle_type">
-                    {% for type in types %}
-                        <option value="{{ type.id }}" id="{{ type.id }}">{{ type.nameType }}</option>
-                        {#<option value="convertible">Convertible</option>#}
-                    {% endfor %}
-                </select>
-            </div>
-            <button type="submit" class="btn primary">Proceed</button>
-            <button type="button" class="btn secondary" id="clear-filters-btn">Clear filters</button>
-        </form>
         <div class="products-columns">
-
-            {% for car in cars %}
-                <div class="product-row">
-                    <div class="product name one">
-                        {{ car.name }}
+            {% if cars is defined %}
+                {% for car in cars %}
+                    <div class="product-row">
+                        <div class="product name one">
+                            {{ car.name }}
+                        </div>
+                        <div class="product model one">
+                            {{ car.model }}
+                        </div>
+                        {% if car.imagePath %}
+                            <img class="product-image" src="{{asset('../' ~ car.imagePath) }}" alt="{{ car.name }}" title="{{ car.name }}">
+                        {% endif %}
+                        <div class="product-redirect">
+                            <a class="product-link link-one" href="{{ path('car_show', {id: car.id}) }}" data-url="{{ path('car_show', {id: car.id}) }}">Select</a>
+                        </div>
                     </div>
-                    <div class="product model one">
-                        {{ car.model }}
-                    </div>
-                    {% if car.imagePath %}
-                        <img class="product-image" src="{{asset('../' ~ car.imagePath) }}" alt="{{ car.name }}" title="{{ car.name }}" style="height: 250px; object-fit: cover; object-position: left;">
-                    {% endif %}
-                    <div class="product-redirect">
-                        <a class="product-link link-one" href="{{ path('car_show', {id: car.id}) }}" data-url="{{ path('car_show', {id: car.id}) }}">Select</a>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+    <div class="sidebar">
+        <div class="filter-container">
+            <form id="products-form">
+                <div class="filter-options-item">
+                    <dt class="filter-options-title">
+                        <span class="title">vehicle type</span>
+                        <i class="collapsible-plus">+(make it collapsible)</i>
+                    </dt>
+                    <div class="filter-options-content">
+                        {% if types is defined %}
+                            {% for type in types %}
+                                <label class="container-checkbox">{{ type.nameType }}
+                                    <input name="{{ type.nameType }}" type="checkbox" data-vehicle-type="{{ type.id }}"
+                                           class="option-check" id="{{ type.id }}" value="{{ type.id }}">
+                                    <span class="checkmark"></span>
+                                </label>
+                            {% endfor %}
+                        {% endif %}
                     </div>
                 </div>
-            {% endfor %}
+                <div class="filter-options-item">
+                    <dt class="filter-options-title">
+                        <span class="title">brand</span>
+                        <i class="collapsible-plus">+(make it collapsible)</i>
+                    </dt>
+                    <div class="filter-options-content">
+                        {% if brands is defined %}
+                            {% for brand in brands %}
+                                <label class="container-checkbox">{{ brand.name }}
+                                    <input name="{{ brand.name }}" type="checkbox" data-vehicle-brand="{{ brand.id }}"
+                                           class="option-check" id="{{ brand.id }}" value="{{ brand.id }}">
+                                    <span class="checkmark"></span>
+                                </label>
+                            {% endfor %}
+                        {% endif %}
+                        <button type="submit" class="btn primary">Proceed</button>
+                        <button type="button" class="btn secondary" id="clear-filters-btn">Clear filters</button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
     <script>
-        function filter() {
+        let sidebar = $(".sidebar").css("top");
+        console.log(sidebar);
+        let filter = () => {
             $('form').submit(function (event) {
                 event.preventDefault();
 
-                let vehicleType = $('select[name=vehicle_type]').val();
-                let productRow = $('.product-row').attr('class');
+                let vehicleType = $('input[type=checkbox][data-vehicle-type]:checked').map(function() { return $(this).val();}).get();
+                let brand = $('input[type=checkbox][data-vehicle-brand]:checked').map(function() {
+                    return $(this).val();
+                }).get();
+
 
                 $.ajax({
-                    url: "{{ path('car_filter') }}?vehicle_type_id=" + vehicleType,
+                    url: "{{ path('app_cars') }}?vehicleType=" + vehicleType + "&brand=" + brand,
                     dataType: 'json',
                     method: 'GET',
-                    data: { vehicle_type_id: vehicleType, },
+                    data: { vehicleType: vehicleType, brand: brand },
+
                     success: function (data) {
-                       $(".products-columns").empty();
+                        $(".products-columns").empty();
 
                         let ajaxResults = '';
                         data.forEach(function(car) {
                             let url = `{{ path('car_show', {'id': 'car.id'}) }}`.replace('car.id', car.id);
-                            console.log(url);
 
                             ajaxResults += '<div class="product-row">';
                             ajaxResults += '<div class="product name one">' + car.name + '</div>';
                             ajaxResults += '<div class="product model one">' + car.model + '</div>';
                             if (car.imagePath) {
                                 let imagePath = car.imagePath;
-                                ajaxResults += '<img class="product-image" id="car-image-' + car.id + '" src="' + imagePath + '" alt="' + car.name + '" title="' + car.name + '" style="height: 250px; object-fit: cover; object-position: left;">';
+                                ajaxResults += '<img class="product-image" id="car-image-' + car.id + '" src="' + imagePath + '" alt="' + car.name + '" title="' + car.name + '">';
                             }
                             ajaxResults += '<div class="product-redirect">';
                             ajaxResults += '<a class="product-link link-one" href="' + url + '">Select</a>';
@@ -73,36 +106,50 @@
                             ajaxResults += '</div>';
 
                         })
+
                         $(".products-columns").append(ajaxResults);
 
+                        // make it dynamically
                         let url = new URL(window.location.href);
+
                         url.searchParams.set('vehicleType', vehicleType);
+
+                        if (!url.searchParams.get('vehicleType')) {
+                            url.searchParams.delete('vehicleType');
+                        }
+
+                        if (brand.length > 0) {
+                            url.searchParams.set('brand', brand);
+                        }
+
                         window.history.pushState({}, null, url.toString());
                     },
+
                     error: function (xhr, status, error) {
-                        console.log(error);
-                    }
+                        console.log(xhr.responseText);
+                    },
                 });
             });
         }
         filter();
-        // if there is no filtered data, then do not display clear filters button
-        // if (!btn) {}
 
-        // loop through filters and add delete on every
         let clearFilters = () => {
             $("#clear-filters-btn").click(function () {
 
                 let vehicleType = $('select[name=vehicle_type]').val();
+                let brand = $('select[name=brand]').val();
+
                 $.ajax({
                     url: "{{ path('clear_filter') }}",
                     success: function () {
                         let url = new URL(window.location.href);
 
                         url.searchParams.delete('vehicleType', vehicleType);
+                        url.searchParams.delete('brand', brand);
+
                         window.history.pushState({}, null, url.toString());
 
-                        url.searchParams.set('sessionclear', 1);
+                        url.searchParams.set('clearFilter', true);
                         window.history.pushState({}, null, url.toString());
                         location.reload();
                     },
@@ -112,7 +159,8 @@
                 })
             })
         }
-
         clearFilters();
+
     </script>
+
 {% endblock %}
