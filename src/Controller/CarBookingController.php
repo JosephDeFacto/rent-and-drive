@@ -35,6 +35,7 @@ class CarBookingController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $booking->setUser($this->getUser());
             $booking->setCar($this->carRepository->find($car));
             $booking->setPickUpDate($form->get('pickUpDate')->getData());
             $booking->setReturnDate($form->get('returnDate')->getData());
