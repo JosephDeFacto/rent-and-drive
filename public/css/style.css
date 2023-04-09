@@ -11,14 +11,60 @@ body {
 
 #container {
     max-width: 100%;
+    /*overflow: auto;*/
 }
 
 .header-container {
     width: 100%;
+    /*
     background: white;
+    */
     position: fixed;
     box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%);
     z-index: 1;
+    top: 0;
+    /* Prolly it should be changed */
+    background: #f1f7fe;
+}
+
+.rndcontainer {
+    position: relative;
+    top: 150px;
+    margin-left: 10%;
+}
+
+.rnd-text {
+    color: red;
+    font-weight: bolder;
+}
+
+.rnd-btn-light {
+    cursor: pointer;
+    background: #4287f5;
+    color: white;
+    padding: 15px;
+    border-radius: 30px;
+    text-decoration: none;
+    position: absolute;
+    bottom: -120px;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.rnd-btn-light:hover {
+    text-decoration-line: underline;
+}
+
+.rndheader {
+    position: relative;
+    top: 0;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    min-height: 600px;
+    opacity: 0.7;
+    box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.3);
+    filter: drop-shadow(5px 5px 5px rgba(0,0,0,0.3));
 }
 
 .header-title {
@@ -28,7 +74,7 @@ body {
 
 .home {
     text-decoration: none;
-    color: black;
+    color: #40B93C;
 }
 
 #navigation {
@@ -82,28 +128,34 @@ li {
 }
 
 .products-columns {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: auto;
+    margin-top: 120px;
 }
+
 
 .product-row {
     box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%);
-    margin: 5px;
     border-radius: 10px;
-    min-height: 100%;
+    background: #FFF;
 }
 
 .product.name {
     font-weight: bolder;
     text-align: center;
+    font-family: 'Montserrat', sans-serif;
 }
 
 .product.model {
     font-weight: bolder;
     text-align: center;
+    font-family: 'Montserrat', sans-serif;
+
 }
 
 .product-redirect {
@@ -114,6 +166,54 @@ li {
 
 .product-link {
     text-decoration: none;
+}
+
+.products-banner {
+    width: 55%;
+    position: relative;
+    background-size: cover;
+    background-position-y: bottom;
+    min-height: 250px;
+    display: block;
+    margin: auto;
+    border-radius: 20px;
+    filter: drop-shadow(5px 5px 5px rgba(0,0,0,0.3));
+    box-shadow: 5px 5px 5px 0px rgb(0 0 0 / 30%);
+    opacity: 0.9;
+}
+
+@media only screen and (min-width: 1400px) {
+    .products-banner {
+        width: 1010px;
+    }
+
+    .products-banner-label {
+
+    }
+}
+
+.products-banner-label {
+    position: relative;
+    top: 150px;
+    padding: 20px;
+    border-top: 1px solid #fff;
+    border-radius: 5px;
+    text-align: center;
+    width: 250px;
+}
+
+.label-text {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #40B93C;
+}
+
+.linethrough {
+    text-decoration-line: line-through;
+}
+
+.noline {
+    text-decoration-line: none;
 }
 
 .link-one {
@@ -129,13 +229,65 @@ li {
 }
 
 .sidebar {
-    width: max-content;
     position: relative;
-    top: 250px;
+    width: 250px;
+    filter: drop-shadow(5px 5px 5px rgba(0,0,0,0.3));
+    box-shadow: 3px 2px 2px 0 rgb(0 0 0 / 15%);
+
+}
+
+@media only screen and (min-width: 1808px){
+    .sidebar {
+        display: flex;
+    }
+}
+
+@media only screen and (min-width: 1808px){
+    .products.form {
+        width: fit-content;
+        display: flex;
+    }
+
+    .container-checkbox {
+        display: flex;
+    }
 }
 
 .filter-container {
-    padding: 20px;
+    margin-left: 50px;
+}
+
+.filter-options-item {
+    position: relative;
+    margin: 0 0 20px 0;
+    border-bottom: 0.5px solid #c0c0c0;
+    line-height: 4;
+}
+
+.filter-options-title {
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+}
+
+.title {
+    display: flex;
+    position: relative;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: 500;
+    font-family: 'Montserrat';
+}
+
+.filter-expand {
+    position: absolute;
+    display: block;
+    margin-left: 140px;
+    cursor: pointer;
+}
+
+.filter-options-content {
+    display: none;
 }
 
 .container-checkbox {
@@ -143,6 +295,8 @@ li {
     position: relative;
     padding-left: 35px;
     margin-bottom: 12px;
+    font-family: 'Montserrat';
+    font-weight: bold;
 }
 
 .container-checkbox input {
@@ -154,7 +308,7 @@ li {
 
 .checkmark {
     position: absolute;
-    top: 0;
+    top: 15px;
     left: 0;
     height: 25px;
     width: 25px;
@@ -189,4 +343,80 @@ li {
     -webkit-transform: rotate(45deg);
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
+}
+
+.auth-container {
+    position: relative;
+    top: 150px;
+    width: 30%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    background: #f1f7fe;
+    border-radius: 30px;
+    height: 30vh;
+    margin-top: 100px;
+}
+
+.register {
+    height: 60vh;
+}
+
+.svg-user {
+    position: relative;
+    top: 10px;
+    width: 50px;
+    height: 50px;
+    margin: auto;
+    display: block;
+}
+
+.form-action {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+label[for=email], label[for=username], label[for=password], label[for=registration_firstname], label[for=registration_lastname],
+label[for=registration_email], label[for=registration_password_first], label[for=registration_password_second], label[for=registration_agreeTerms] {
+    display: block;
+    margin: 10px;
+    font-weight: 600;
+    box-shadow: 0 0 2em hsl(231deg 62% 94%);
+
+}
+
+input[type=text], input[type=email], input[type=password] {
+    padding: 10px;
+    border-radius: 15px;
+}
+
+input[type=checkbox] {
+    display: block;
+    margin: auto;
+    width: 18px;
+    height: 18px;
+}
+
+.auth-submit {
+    margin-top: 20px;
+    width: 70px;
+    background: #3e4684;
+    color: white;
+    font-weight: 600;
+    padding: 1em;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+}
+
+.btn {
+    border: none;
+    font-size: 16px;
+    background: #c0c0c0;
+    color: black;
+    font-weight: 500;
+    cursor: pointer;
+    margin: 0 5px 12px 0;
 }
