@@ -2,6 +2,10 @@
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     margin: 0;
     width: 100%;
@@ -419,4 +423,37 @@ input[type=checkbox] {
     font-weight: 500;
     cursor: pointer;
     margin: 0 5px 12px 0;
+}
+
+.second {
+
+}
+
+.rnd-text-span-second {
+    position: relative;
+    bottom: 73px;
+    width: 100%;
+    display: block;
+    color: black;
+    font-size: 30px;
+    border-radius: 50px;
+    padding: 20px;
+    box-shadow: 4px 4px 8px 0 rgb(0 0 0 / 20%);
+    filter: drop-shadow(5px 5px 5px rgba(0,0,0,0.3));
+    font-weight: bolder;
+    font-family: 'Montserrat';
+}
+
+.title-first {
+    position: relative;
+    padding: 10px;
+    width: 300px;
+    border-radius: 50px;
+    font-size: 45px;
+    line-height: 1;
+    text-align: center;
+    color: white;
+    box-shadow: 4px 4px 8px 0 rgb(0 0 0 / 20%);
+    filter: drop-shadow(5px 5px 5px rgba(0,0,0,0.3));
+    font-family: 'Montserrat';
 }
