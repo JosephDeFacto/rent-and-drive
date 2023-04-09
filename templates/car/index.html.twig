@@ -3,6 +3,14 @@
 {% block title %}Cars{% endblock %}
 
 {% block body %}
+    <div class="products-banner" style="background-image: url('/../uploads/banner.jpg')">
+        <div class="products-banner-label">
+            <span class="rnd-text label-text linethrough">It's expensive</span>
+            <br>
+            <span class="rnd-text label-text noline">It's affordable</span>
+        </div>
+    </div>
+
     <div class="products-content-main">
         <div class="products-columns">
             {% if cars is defined %}
@@ -25,15 +33,16 @@
             {% endif %}
         </div>
     </div>
+
     <div class="sidebar">
         <div class="filter-container">
             <form id="products-form">
                 <div class="filter-options-item">
                     <dt class="filter-options-title">
                         <span class="title">vehicle type</span>
-                        <i class="collapsible-plus">+(make it collapsible)</i>
+                        <button class="filter-expand" type="button">+</button>
                     </dt>
-                    <div class="filter-options-content">
+                    <div class="filter-options-content vehicle-type-content">
                         {% if types is defined %}
                             {% for type in types %}
                                 <label class="container-checkbox">{{ type.nameType }}
@@ -48,9 +57,9 @@
                 <div class="filter-options-item">
                     <dt class="filter-options-title">
                         <span class="title">brand</span>
-                        <i class="collapsible-plus">+(make it collapsible)</i>
+                        <button class="filter-expand" type="button">+</button>
                     </dt>
-                    <div class="filter-options-content">
+                    <div class="filter-options-content brand-content">
                         {% if brands is defined %}
                             {% for brand in brands %}
                                 <label class="container-checkbox">{{ brand.name }}
@@ -60,16 +69,17 @@
                                 </label>
                             {% endfor %}
                         {% endif %}
-                        <button type="submit" class="btn primary">Proceed</button>
-                        <button type="button" class="btn secondary" id="clear-filters-btn">Clear filters</button>
                     </div>
                 </div>
+
+                <button type="submit" class="btn primary">Proceed</button>
+                <button type="button" class="btn secondary" id="clear-filters-btn">Clear filters</button>
             </form>
         </div>
     </div>
+
     <script>
-        let sidebar = $(".sidebar").css("top");
-        console.log(sidebar);
+
         let filter = () => {
             $('form').submit(function (event) {
                 event.preventDefault();
@@ -81,7 +91,7 @@
 
 
                 $.ajax({
-                    url: "{{ path('app_cars') }}?vehicleType=" + vehicleType + "&brand=" + brand,
+                    url: "{{ path('filter_api') }}?vehicleType=" + vehicleType + "&brand=" + brand,
                     dataType: 'json',
                     method: 'GET',
                     data: { vehicleType: vehicleType, brand: brand },
@@ -160,6 +170,24 @@
             })
         }
         clearFilters();
+
+        let collapsibleFilters = () => {
+
+            $('.filter-options-title').click(function () {
+
+                let content = $(this).siblings('.filter-options-content');
+                let btnExpand = $(this).find('.filter-expand');
+
+                if (content.css('display') === 'none') {
+                    content.css('display', 'block');
+                    btnExpand.text('-');
+                } else {
+                    content.css('display', 'none');
+                    btnExpand.text('+');
+                }
+            });
+        }
+        collapsibleFilters();
 
     </script>
 
