@@ -3,5 +3,12 @@
 {% block title %}Hello IndexController!{% endblock %}
 
 {% block body %}
-    IndexController!
+    <div class="rndheader opacity-background" style="background-image: url('/../uploads/background-car.jpeg')">
+        <div class="rndcontainer relative">
+            <div class="rndheader-content">
+                <h1 class="rndtitle"><span>Drop it like it's hot, </span><span class="rnd-text">  rent it like it's not</span></h1>
+                <a href="{{ path('app_cars') }}" class="rnd-btn-light">Find your subscription car</a>
+            </div>
+        </div>
+    </div>
 {% endblock %}
