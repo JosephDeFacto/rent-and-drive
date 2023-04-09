@@ -6,17 +6,22 @@
     {% if error %}
         <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
+    <div class="auth-container login">
 
-    <form action="{{ path('app_login') }}" method="post">
-        <label for="username">Email:</label>
-        <input type="text" id="username" name="_username" value="{{ last_username }}"/>
+        <svg class="svg-user svg-login" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm89.6 32h-16.7c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16h-16.7C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-41.6c0-74.2-60.2-134.4-134.4-134.4z"/></svg>
 
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="_password"/>
+        <form action="{{ path('app_login') }}" method="post" class="form-action login">
+            <label for="username">Email:</label>
+            <input type="text" id="username" name="_username" placeholder="youremail@gmail.com" autocomplete="off" autofocus value="{{ last_username }}"/>
 
-        {# If you want to control the URL the user is redirected to on success
+            <label for="password">Password:</label>
+            <input type="password" id="password" placeholder="********" name="_password"/>
+
+            {# If you want to control the URL the user is redirected to on success
         <input type="hidden" name="_target_path" value="/account"/> #}
 
-        <button type="submit">login</button>
-    </form>
+            <button class="auth-submit" type="submit">login</button>
+
+        </form>
+    </div>
 {% endblock %}
