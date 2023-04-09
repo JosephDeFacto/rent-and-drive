@@ -45,6 +45,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $lastname;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Booking::class, mappedBy="user", cascade={"persist", "remove"})
+     */
+    private $booking;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -154,6 +159,28 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setLastname(string $lastname): self
     {
         $this->lastname = $lastname;
+
+        return $this;
+    }
+
+    public function getBooking(): ?Booking
+    {
+        return $this->booking;
+    }
+
+    public function setBooking(?Booking $booking): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($booking === null && $this->booking !== null) {
+            $this->booking->setUser(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($booking !== null && $booking->getUser() !== $this) {
+            $booking->setUser($this);
+        }
+
+        $this->booking = $booking;
 
         return $this;
     }
