@@ -10,7 +10,6 @@
             <span class="rnd-text label-text noline">It's affordable</span>
         </div>
     </div>
-
     <div class="products-content-main">
         <div class="products-columns">
             {% if cars is defined %}
@@ -32,57 +31,56 @@
                 {% endfor %}
             {% endif %}
         </div>
-    </div>
-
-    <div class="sidebar">
-        <div class="filter-container">
-            <form id="products-form">
-                <div class="filter-options-item">
-                    <dt class="filter-options-title">
-                        <span class="title">vehicle type</span>
-                        <button class="filter-expand" type="button">+</button>
-                    </dt>
-                    <div class="filter-options-content vehicle-type-content">
-                        {% if types is defined %}
-                            {% for type in types %}
-                                <label class="container-checkbox">{{ type.nameType }}
-                                    <input name="{{ type.nameType }}" type="checkbox" data-vehicle-type="{{ type.id }}"
-                                           class="option-check" id="{{ type.id }}" value="{{ type.id }}">
-                                    <span class="checkmark"></span>
-                                </label>
-                            {% endfor %}
-                        {% endif %}
+        <div class="sidebar">
+            <div class="filter-container">
+                <form id="products-form">
+                    <div class="filter-options-item">
+                        <dt class="filter-options-title">
+                            <span class="title">vehicle type</span>
+                            <button class="filter-expand" type="button">+</button>
+                        </dt>
+                        <div class="filter-options-content vehicle-type-content">
+                            {% if types is defined %}
+                                {% for type in types %}
+                                    <label class="container-checkbox">{{ type.nameType }}
+                                        <input name="{{ type.nameType }}" type="checkbox" data-vehicle-type="{{ type.id }}"
+                                               class="option-check" id="{{ type.id }}" value="{{ type.id }}">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
                     </div>
-                </div>
-                <div class="filter-options-item">
-                    <dt class="filter-options-title">
-                        <span class="title">brand</span>
-                        <button class="filter-expand" type="button">+</button>
-                    </dt>
-                    <div class="filter-options-content brand-content">
-                        {% if brands is defined %}
-                            {% for brand in brands %}
-                                <label class="container-checkbox">{{ brand.name }}
-                                    <input name="{{ brand.name }}" type="checkbox" data-vehicle-brand="{{ brand.id }}"
-                                           class="option-check" id="{{ brand.id }}" value="{{ brand.id }}">
-                                    <span class="checkmark"></span>
-                                </label>
-                            {% endfor %}
-                        {% endif %}
+                    <div class="filter-options-item">
+                        <dt class="filter-options-title">
+                            <span class="title">brand</span>
+                            <button class="filter-expand" type="button">+</button>
+                        </dt>
+                        <div class="filter-options-content brand-content">
+                            {% if brands is defined %}
+                                {% for brand in brands %}
+                                    <label class="container-checkbox">{{ brand.name }}
+                                        <input name="{{ brand.name }}" type="checkbox" data-vehicle-brand="{{ brand.id }}"
+                                               class="option-check" id="{{ brand.id }}" value="{{ brand.id }}">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
                     </div>
-                </div>
 
-                <button type="submit" class="btn primary">Proceed</button>
-                <button type="button" class="btn secondary" id="clear-filters-btn">Clear filters</button>
-            </form>
+                    <button type="submit" class="btn primary">Proceed</button>
+                    <button type="button" class="btn secondary" id="clear-filters-btn">Clear filters</button>
+                </form>
+            </div>
         </div>
     </div>
-
     <script>
-
         let filter = () => {
             $('form').submit(function (event) {
                 event.preventDefault();
+
+
 
                 let vehicleType = $('input[type=checkbox][data-vehicle-type]:checked').map(function() { return $(this).val();}).get();
                 let brand = $('input[type=checkbox][data-vehicle-brand]:checked').map(function() {
