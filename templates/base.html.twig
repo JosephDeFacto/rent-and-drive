@@ -38,11 +38,16 @@
         </header>
     </div>
 
-
     {% block body %}
     {% endblock %}
+
     <div class="rnd-footer">
         <p class="rnd-copyright">Copyright © 2023</p>
+        <ul class="list-footer">
+            <li class="navigation-list-item"><a class="level0 footer0" href="#about">About</a></li>
+            <li class="navigation-list-item"><a class="level0 footer0" href="{{ path('app_cars') }}">Cars</a></li>
+        </ul>
     </div>
+
     </body>
 </html>

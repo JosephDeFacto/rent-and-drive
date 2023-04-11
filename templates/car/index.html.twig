@@ -3,78 +3,81 @@
 {% block title %}Cars{% endblock %}
 
 {% block body %}
-    <div class="products-banner" style="background-image: url('/../uploads/banner.jpg')">
-        <div class="products-banner-label">
-            <span class="rnd-text label-text linethrough">It's expensive</span>
-            <br>
-            <span class="rnd-text label-text noline">It's affordable</span>
+    <div class="content-container">
+        <div class="products-banner" style="background-image: url('/../uploads/banner.jpg')">
+            <div class="products-banner-label">
+                <span class="rnd-text label-text linethrough">It's expensive</span>
+                <br>
+                <span class="rnd-text label-text noline">It's affordable</span>
+            </div>
         </div>
-    </div>
-    <div class="products-content-main">
-        <div class="products-columns">
-            {% if cars is defined %}
-                {% for car in cars %}
-                    <div class="product-row">
-                        <div class="product name one">
-                            {{ car.name }}
-                        </div>
-                        <div class="product model one">
-                            {{ car.model }}
-                        </div>
-                        {% if car.imagePath %}
-                            <img class="product-image" src="{{asset('../' ~ car.imagePath) }}" alt="{{ car.name }}" title="{{ car.name }}">
-                        {% endif %}
-                        <div class="product-redirect">
-                            <a class="product-link link-one" href="{{ path('car_show', {id: car.id}) }}" data-url="{{ path('car_show', {id: car.id}) }}">Select</a>
-                        </div>
-                    </div>
-                {% endfor %}
-            {% endif %}
-        </div>
-        <div class="sidebar">
-            <div class="filter-container">
-                <form id="products-form">
-                    <div class="filter-options-item">
-                        <dt class="filter-options-title">
-                            <span class="title">vehicle type</span>
-                            <button class="filter-expand" type="button">+</button>
-                        </dt>
-                        <div class="filter-options-content vehicle-type-content">
-                            {% if types is defined %}
-                                {% for type in types %}
-                                    <label class="container-checkbox">{{ type.nameType }}
-                                        <input name="{{ type.nameType }}" type="checkbox" data-vehicle-type="{{ type.id }}"
-                                               class="option-check" id="{{ type.id }}" value="{{ type.id }}">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                {% endfor %}
+        <div class="products-content-main">
+            <div class="products-columns">
+                {% if cars is defined %}
+                    {% for car in cars %}
+                        <div class="product-row">
+                            <div class="product name one">
+                                {{ car.name }}
+                            </div>
+                            <div class="product model one">
+                                {{ car.model }}
+                            </div>
+                            {% if car.imagePath %}
+                                <img class="product-image" src="{{asset('../' ~ car.imagePath) }}" alt="{{ car.name }}" title="{{ car.name }}">
                             {% endif %}
+                            <div class="product-redirect">
+                                <a class="product-link link-one" href="{{ path('car_show', {id: car.id}) }}" data-url="{{ path('car_show', {id: car.id}) }}">Select</a>
+                            </div>
                         </div>
-                    </div>
-                    <div class="filter-options-item">
-                        <dt class="filter-options-title">
-                            <span class="title">brand</span>
-                            <button class="filter-expand" type="button">+</button>
-                        </dt>
-                        <div class="filter-options-content brand-content">
-                            {% if brands is defined %}
-                                {% for brand in brands %}
-                                    <label class="container-checkbox">{{ brand.name }}
-                                        <input name="{{ brand.name }}" type="checkbox" data-vehicle-brand="{{ brand.id }}"
-                                               class="option-check" id="{{ brand.id }}" value="{{ brand.id }}">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                {% endfor %}
-                            {% endif %}
+                    {% endfor %}
+                {% endif %}
+            </div>
+            <div class="sidebar">
+                <div class="filter-container">
+                    <form id="products-form">
+                        <div class="filter-options-item">
+                            <dt class="filter-options-title">
+                                <span class="title">vehicle type</span>
+                                <button class="filter-expand" type="button">+</button>
+                            </dt>
+                            <div class="filter-options-content vehicle-type-content">
+                                {% if types is defined %}
+                                    {% for type in types %}
+                                        <label class="container-checkbox">{{ type.nameType }}
+                                            <input name="{{ type.nameType }}" type="checkbox" data-vehicle-type="{{ type.id }}"
+                                                   class="option-check" id="{{ type.id }}" value="{{ type.id }}">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
                         </div>
-                    </div>
+                        <div class="filter-options-item">
+                            <dt class="filter-options-title">
+                                <span class="title">brand</span>
+                                <button class="filter-expand" type="button">+</button>
+                            </dt>
+                            <div class="filter-options-content brand-content">
+                                {% if brands is defined %}
+                                    {% for brand in brands %}
+                                        <label class="container-checkbox">{{ brand.name }}
+                                            <input name="{{ brand.name }}" type="checkbox" data-vehicle-brand="{{ brand.id }}"
+                                                   class="option-check" id="{{ brand.id }}" value="{{ brand.id }}">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                        </div>
 
-                    <button type="submit" class="btn primary">Proceed</button>
-                    <button type="button" class="btn secondary" id="clear-filters-btn">Clear filters</button>
-                </form>
+                        <button type="submit" class="btn primary">Proceed</button>
+                        <button type="button" class="btn secondary" id="clear-filters-btn">Clear filters</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
+
     <script>
         let filter = () => {
             $('form').submit(function (event) {
