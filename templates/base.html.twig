@@ -8,6 +8,8 @@
 {#
         <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
 #}
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
         <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
         <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
 
@@ -27,13 +29,15 @@
             <div class="header-title">
                 <h1><a class="home" href="{{ path('app_index') }}">rent 'n' drive</a></h1>
             </div>
-            <nav id="navigation">
-                <ul>
-                    <li><a class="level0" href="#about">About</a></li>
-                    <li><a class="level0" href="{{ path('app_cars') }}">Our cars</a></li>
-                    <li><a class="level0" href="{{ path('app_registration') }}">Register</a></li>
-                    <li><a class="level0" href="{{ path('app_login') }}">Login</a></li>
+            <nav id="navigation" class="topNav">
+                <ul class="nav-top-list">
+                    <li class="nav-top-item"><a class="level0" href="#about">About</a></li>
+                    <li class="nav-top-item"><a class="level0" href="{{ path('app_cars') }}">Our cars</a></li>
+                    <li class="nav-top-item"><a class="level0" href="{{ path('app_registration') }}">Register</a></li>
+                    <li class="nav-top-item"><a class="level0" href="{{ path('app_login') }}">Login</a></li>
                 </ul>
+
+                <button class="hamburger">&#9776;</button>
             </nav>
         </header>
     </div>
@@ -49,5 +53,19 @@
         </ul>
     </div>
 
+    <script>
+
+        let hamburgerBtn = document.querySelector(".hamburger");
+        let navId = document.getElementById('navigation');
+
+        hamburgerBtn.addEventListener('click', function () {
+            if (navId.className === "topNav") {
+                navId.className += " responsive";
+            } else {
+                navId.className = "topNav";
+            }
+        });
+
+    </script>
     </body>
 </html>
