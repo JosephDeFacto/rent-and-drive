@@ -89,9 +89,8 @@
     <script>
         let filter = () => {
             $('form').submit(function (event) {
+
                 event.preventDefault();
-
-
 
                 let vehicleType = $('input[type=checkbox][data-vehicle-type]:checked').map(function() { return $(this).val();}).get();
                 let brand = $('input[type=checkbox][data-vehicle-brand]:checked').map(function() {
@@ -198,6 +197,10 @@
         }
         collapsibleFilters();
 
+        let mobileNav = document.querySelector('.hamburger');
+
+        let homeHref = document.querySelector('.home');
+
         let filterModal = document.getElementById('filter-modal');
 
         let sidebar = document.querySelector('.sidebar');
@@ -236,9 +239,23 @@
             span.zIndex = 3;
         }
 
-        btnProceed.onclick = function () {
-            filterModal.style.display = "none";
 
+        if (window.matchMedia('screen and (max-width: 768px)').matches) {
+            btnProceed.onclick = function () {
+                filterModal.style.display = "none";
+            }
+        }
+
+        if (window.matchMedia('screen and (max-width: 768px)').matches) {
+            mobileNav.addEventListener('click', function() {
+                if (homeHref.style.position !== 'relative') {
+                    homeHref.style.position = 'relative';
+                    homeHref.style.top = '100px';
+                } else {
+                    homeHref.style.position = 'initial';
+                    homeHref.style.top = '0';
+                }
+            });
         }
 
         span.onclick = function () {
