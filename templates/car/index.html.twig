@@ -18,7 +18,6 @@
                 <span class="modal-close">&times;</span>
         </div>
 
-
         <div class="products-content-main">
             <div class="products-columns">
                 {% if cars is defined %}
@@ -41,9 +40,9 @@
                 {% endif %}
             </div>
             <div class="sidebar">
-                <div class="filter-container">
-                    <form id="products-form">
-                        <div class="filter-options-item">
+                <div class="filter-container absolute-left">
+                    <form id="products-form" class="margin-top">
+                        <div class="filter-options-item responsive-filters">
                             <dt class="filter-options-title">
                                 <span class="title">vehicle type</span>
                                 <button class="filter-expand" type="button">+</button>
@@ -60,7 +59,7 @@
                                 {% endif %}
                             </div>
                         </div>
-                        <div class="filter-options-item">
+                        <div class="filter-options-item responsive-filters">
                             <dt class="filter-options-title">
                                 <span class="title">brand</span>
                                 <button class="filter-expand" type="button">+</button>
@@ -79,7 +78,7 @@
                         </div>
 
                         <button type="submit" class="btn primary">Proceed</button>
-                        <button type="button" class="btn secondary" id="clear-filters-btn">Clear filters</button>
+                        <button type="button" class="btn secondary left" id="clear-filters-btn">Clear filters</button>
                     </form>
                 </div>
             </div>
@@ -197,9 +196,7 @@
         }
         collapsibleFilters();
 
-        let mobileNav = document.querySelector('.hamburger');
 
-        let homeHref = document.querySelector('.home');
 
         let filterModal = document.getElementById('filter-modal');
 
@@ -246,17 +243,6 @@
             }
         }
 
-        if (window.matchMedia('screen and (max-width: 768px)').matches) {
-            mobileNav.addEventListener('click', function() {
-                if (homeHref.style.position !== 'relative') {
-                    homeHref.style.position = 'relative';
-                    homeHref.style.top = '100px';
-                } else {
-                    homeHref.style.position = 'initial';
-                    homeHref.style.top = '0';
-                }
-            });
-        }
 
         span.onclick = function () {
             filterModal.style.display = "none";
