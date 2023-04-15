@@ -76,7 +76,6 @@ body {
 
 .header-title {
     margin-left: 15%;
-    font-family: "DejaVu Serif", sans-serif;
 }
 
 .home {
@@ -116,7 +115,8 @@ li {
 
 @media only screen and (max-width: 980px) {
     .header-title {
-        margin: 0;
+        margin: 0 !important;
+
     }
 }
 
@@ -324,7 +324,6 @@ li {
     .rnd-text-span-second {
         font-size: 20px !important;
         bottom: 86px !important;
-
     }
 
     .span {
@@ -340,9 +339,11 @@ li {
         bottom: 22px;
     }
 
+
     .home {
-        font-size: 25px;
-        margin-left: 50px;
+        font-size: 20px !important;
+        margin-left: 20px !important;
+        font-family: 'Montserrat', sans-serif;
     }
 
     .auth-container {
@@ -354,6 +355,50 @@ li {
        width: 300px;
        height: 280px;
    }
+
+   .absolute-left {
+       position: absolute;
+       left: 40%;
+       width: 100%;
+   }
+
+   .margin-top {
+       margin: 35px 0 0 0;
+   }
+
+    .filter-expand {
+        left: 200px;
+        font-size: 25px;
+        border: none;
+        box-shadow: 4px 4px 8px 0 rgb(0 0 0 / 20%);
+        filter: drop-shadow(5px 5px 5px rgba(0,0,0,0.3));
+        border-radius: 30px;
+
+    }
+
+    .title {
+        font-size: 30px !important;
+    }
+
+    .left {
+        position: absolute;
+        left: 45%;
+    }
+
+    .primary, .secondary {
+        padding: 10px;
+        font-size: 20px;
+        border-radius: 5px;
+    }
+
+    .filter-options-content {
+        font-size: 22px;
+    }
+
+    .checkmark {
+        margin-top: 15px;
+    }
+
 }
 
 .btn-filters {
@@ -388,8 +433,6 @@ li {
         min-height: 100%;
     }
 
-    .rnd-footer {
-    }
 
     .modal {
         /*display: none;
@@ -409,7 +452,7 @@ li {
     .modal-close {
         position: absolute;
         z-index: 3;
-        font-size: 30px;
+        font-size: 50px !important;
         right: 0;
         top: 0;
     }
@@ -589,9 +632,11 @@ input[type=checkbox] {
     margin: 0 5px 12px 0;
 }
 
-.second {
-
+.products-content-main  {
+    position: relative;
+    top: auto;
 }
+
 
 .rnd-text-span-second {
     position: relative;

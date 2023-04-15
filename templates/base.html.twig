@@ -55,6 +55,8 @@
 
     <script>
 
+        let homeHref = document.querySelector('.home');
+
         let hamburgerBtn = document.querySelector(".hamburger");
         let navId = document.getElementById('navigation');
 
@@ -65,6 +67,18 @@
                 navId.className = "topNav";
             }
         });
+
+        if (window.matchMedia('screen and (max-width: 768px)').matches) {
+            hamburgerBtn.addEventListener('click', function() {
+                if (homeHref.style.position !== 'relative') {
+                    homeHref.style.position = 'relative';
+                    homeHref.style.top = '100px';
+                } else {
+                    homeHref.style.position = 'initial';
+                    homeHref.style.top = '0';
+                }
+            });
+        }
 
     </script>
     </body>
