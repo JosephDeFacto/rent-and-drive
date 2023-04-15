@@ -3,7 +3,61 @@
 {% block title %}Show{% endblock %}
 
 {% block body %}
-    {{ carInfo.name }}
-    {{ carInfo.model }}
-    <a href="{{ path('app_car_booking', {id: carInfo.id}) }}">Book this car</a>
+    <div class="products-content-container ">
+        <div class="products-content-main product-page">
+
+            <div class="product-row">
+                <div class="product name one">
+                    {{ carInfo.name }}
+                </div>
+            </div>
+            <div class="product-row">
+                <div class="product model one">
+                    {{ carInfo.model }}
+                </div>
+            </div>
+            <div class="image-row">
+                {% if carInfo.imagePath %}
+                    <img class="product-image" src="{{asset('../' ~ carInfo.imagePath) }}" alt="{{ carInfo.name }}" title="{{ carInfo.name }}">
+                {% endif %}
+            </div>
+
+            <div class="product-details-title">
+                <span class="rnd-text-span-second bottom-out">Car details</span>
+            </div>
+
+            <div class="product-details">
+                <div class="product product-details-row">
+                    <div class="product-details-column">
+                        <div class="product-details-data">
+                            <p class="product-details-info">Availability</p>
+                            <span class="product-details-description">{{ carInfo.getFeature.getAvailabilityDescription }}</span>
+                        </div>
+                    </div>
+                    <div class="product-details-column">
+                        <div class="product-details-data">
+                            <p class="product-details-info">Performance</p>
+                            <span class="product-details-description">{{ carInfo.getFeature.getPerformance }}</span>
+                        </div>
+                    </div>
+                    <div class="product-details-column">
+                        <div class="product-details-data">
+                            <p class="product-details-info">Fuel</p>
+                            <span class="product-details-description">{{ carInfo.getFeature.getFuel }}</span>
+                        </div>
+                    </div>
+                    <div class="product-details-column">
+                        <div class="product-details-data">
+                            <p class="product-details-info">Transmission</p>
+                            <span class="product-details-description">{{ carInfo.getFeature.getTransmission }}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-redirect">
+                    <a class="product-link link-one" href="{{ path('app_car_booking', {id: carInfo.id}) }}">Book this car</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
 {% endblock %}

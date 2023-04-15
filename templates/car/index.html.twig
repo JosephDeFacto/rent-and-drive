@@ -29,9 +29,12 @@
                             <div class="product model one">
                                 {{ car.model }}
                             </div>
-                            {% if car.imagePath %}
-                                <img class="product-image" src="{{asset('../' ~ car.imagePath) }}" alt="{{ car.name }}" title="{{ car.name }}">
-                            {% endif %}
+                            <div class="image-row">
+                                {% if car.imagePath %}
+                                    <img class="product-image" src="{{asset('../' ~ car.imagePath) }}" alt="{{ car.name }}" title="{{ car.name }}">
+                                    <span class="status">{{ car.getFeature.availabilityStatus }}</span>
+                                {% endif %}
+                            </div>
                             <div class="product-redirect">
                                 <a class="product-link link-one" href="{{ path('car_show', {id: car.id}) }}" data-url="{{ path('car_show', {id: car.id}) }}">Select</a>
                             </div>
@@ -104,19 +107,25 @@
                     data: { vehicleType: vehicleType, brand: brand },
 
                     success: function (data) {
+                        console.log(data);
                         $(".products-columns").empty();
 
                         let ajaxResults = '';
                         data.forEach(function(car) {
+
                             let url = `{{ path('car_show', {'id': 'car.id'}) }}`.replace('car.id', car.id);
 
                             ajaxResults += '<div class="product-row">';
                             ajaxResults += '<div class="product name one">' + car.name + '</div>';
                             ajaxResults += '<div class="product model one">' + car.model + '</div>';
+                            ajaxResults += '<div class="image-row">';
                             if (car.imagePath) {
                                 let imagePath = car.imagePath;
                                 ajaxResults += '<img class="product-image" id="car-image-' + car.id + '" src="' + imagePath + '" alt="' + car.name + '" title="' + car.name + '">';
+                                ajaxResults += '<span class="status">' + car.availability + '</span>';
                             }
+                            ajaxResults += '</div>';
+
                             ajaxResults += '<div class="product-redirect">';
                             ajaxResults += '<a class="product-link link-one" href="' + url + '">Select</a>';
                             ajaxResults += '</div>';

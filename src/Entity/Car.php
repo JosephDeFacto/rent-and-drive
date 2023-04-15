@@ -51,6 +51,12 @@ class Car
      */
     private $brand;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Feature::class, cascade={"persist", "remove"}, fetch="EAGER")
+     * @ORM\JoinColumn(name="feature_id", referencedColumnName="id")
+     */
+    private $feature;
+
 
     public function __construct()
     {
@@ -154,6 +160,18 @@ class Car
     public function setBrand(?Brand $brand): self
     {
         $this->brand = $brand;
+
+        return $this;
+    }
+
+    public function getFeature(): ?Feature
+    {
+        return $this->feature;
+    }
+
+    public function setFeature(?Feature $feature): self
+    {
+        $this->feature = $feature;
 
         return $this;
     }

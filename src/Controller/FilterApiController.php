@@ -41,6 +41,7 @@ class FilterApiController extends AbstractController
             $cars = $this->carRepository->findBy($criteria);
         }
 
+
         if (isset($cars)) {
             foreach ($cars as $car) {
                 $responseData[] = [
@@ -48,9 +49,11 @@ class FilterApiController extends AbstractController
                     'name' => $car->getName(),
                     'model' => $car->getModel(),
                     'imagePath' => $car->getImagePath(),
+                    'availability' => $car->getFeature()->getAvailabilityStatus(),
                 ];
             }
         }
+
 
         return new JsonResponse($responseData);
     }
