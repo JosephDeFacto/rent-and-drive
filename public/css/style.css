@@ -111,7 +111,6 @@ li {
 @media only screen and (max-width: 980px) {
     .header-title {
         margin: 0 !important;
-
     }
 }
 
@@ -121,6 +120,11 @@ li {
     box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%);
     width: 330px;
     height: 300px;
+}
+
+.show {
+    width: 600px;
+    height: 310px;
 }
 
 .products-columns {
@@ -228,7 +232,6 @@ li {
 }
 
 @media only screen and (max-width: 1350px) {
-
     .products-banner {
         width: 680px;
     }
@@ -337,10 +340,6 @@ li {
         font-family: 'Montserrat', sans-serif;
     }
 
-    .product-row {
-
-    }
-
     .auth-container {
         width: 100% !important;
         height: 76vh !important;
@@ -397,6 +396,25 @@ li {
 
     .products-banner {
         width: 100%;
+    }
+
+    .product-details-row {
+        display: flex !important;
+        flex-direction: column !important;
+    }
+
+    .product-details-title {
+        margin-right: 0 !important;
+    }
+
+    .product-details {
+        display: flex;
+        flex-direction: column;
+        margin-right: 0 !important;
+    }
+
+    .product-details-column {
+        height: 50px !important
     }
 }
 
@@ -593,6 +611,10 @@ input[type=text], input[type=email], input[type=password] {
     border-radius: 15px;
 }
 
+input[type=radio] {
+    cursor: pointer;
+}
+
 input[type=checkbox] {
     display: block;
     margin: auto;
@@ -631,7 +653,6 @@ input[type=checkbox] {
     position: relative;
 }
 
-
 .rnd-text-span-second {
     position: relative;
     bottom: 73px;
@@ -668,16 +689,20 @@ input[type=checkbox] {
 
 .image-row {
     position: relative;
+    margin-left: 10%;
+    margin-right: auto;
 }
 
 .status {
-    position: absolute;
+    position: relative;
     right: 0;
     background: #04AA6D;
     padding: 8px;
     border-radius: 50px;
     color: white;
     font-family: 'Montserrat';
+    bottom: 335px;
+    left: 290px;
 }
 
 .product-details-title {
@@ -689,6 +714,57 @@ input[type=checkbox] {
     margin-right: 30%;
     margin-top: 15px;
     border-bottom: 1px solid #c0c0c0;
+}
+
+.product-packages {
+    position: absolute;
+    top: 34%;
+    display: flex;
+    left: 45%;
+}
+
+.package-title {
+    filter: drop-shadow(5px 5px 5px rgba(0,0,0,0.3));
+    font-weight: bolder;
+    font-family: 'Montserrat';
+    font-size: 30px;
+    position: absolute;
+    top: 25%;
+    right: 30%;
+    width: 20%;
+}
+
+.package-label {
+    position: relative;
+    bottom: 10px;
+    bottom: 2px;
+    right: 10px;
+}
+
+.product-package {
+    padding: 20px;
+}
+
+.btn-wrapper {
+    height: 0;
+    position: relative;
+    top: 70px;
+    right: 50%;
+}
+
+.btn-package-proceed {
+    background: purple;
+    border: none;
+    padding: 10px;
+    font-family: 'Montserrat';
+    color: white;
+    cursor: pointer;
+}
+
+.products-radio-item {
+    border: 1px solid #40B93C;
+    border-radius: 30px;
+    padding: 20px;
 }
 
 
@@ -705,6 +781,22 @@ input[type=checkbox] {
 .product-details-info {
     font-weight: bolder;
     font-family: 'Montserrat';
+}
+
+.package-price {
+    position: relative;
+    font-size: 14px;
+    font-weight: bolder;
+}
+
+.package-km {
+    position: relative;
+    font-size: 14px;
+}
+
+.package-short {
+    position: relative;
+
 }
 
 .product-details-description {

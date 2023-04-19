@@ -31,13 +31,13 @@
                             </div>
                             <div class="image-row">
                                 {% if car.imagePath %}
-                                    <img class="product-image" src="{{asset('../' ~ car.imagePath) }}" alt="{{ car.name }}" title="{{ car.name }}">
+                                    <a href="{{ path('car_show', {id: car.id}) }}" data-url="{{ path('car_show', {id: car.id}) }}"><img class="product-image" src="{{asset('../' ~ car.imagePath) }}" alt="{{ car.name }}" title="{{ car.name }}"></a>
                                     <span class="status">{{ car.getFeature.availabilityStatus }}</span>
                                 {% endif %}
                             </div>
-                            <div class="product-redirect">
+                            {#<div class="product-redirect">
                                 <a class="product-link link-one" href="{{ path('car_show', {id: car.id}) }}" data-url="{{ path('car_show', {id: car.id}) }}">Select</a>
-                            </div>
+                            </div>#}
                         </div>
                     {% endfor %}
                 {% endif %}

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Repository\BrandRepository;
 use App\Repository\CarRepository;
+use App\Repository\PackageRepository;
 use App\Repository\VehicleTypeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,14 +16,16 @@ class CarController extends AbstractController
     private CarRepository $carRepository;
     private VehicleTypeRepository $vehicleTypeRepository;
     private BrandRepository $brandRepository;
+    private PackageRepository $packageRepository;
 
 
 
-    public function __construct(CarRepository $carRepository, BrandRepository $brandRepository, VehicleTypeRepository $vehicleTypeRepository)
+    public function __construct(CarRepository $carRepository, BrandRepository $brandRepository, VehicleTypeRepository $vehicleTypeRepository, PackageRepository $packageRepository)
     {
         $this->carRepository = $carRepository;
         $this->brandRepository = $brandRepository;
         $this->vehicleTypeRepository = $vehicleTypeRepository;
+        $this->packageRepository = $packageRepository;
     }
 
     /**
@@ -50,7 +53,9 @@ class CarController extends AbstractController
     {
         $car = $this->carRepository->find($id);
 
-        return $this->render('car/show.html.twig', ['carInfo' => $car]);
+        $packages = $this->packageRepository->findAll();
+
+        return $this->render('car/show.html.twig', ['carInfo' => $car, 'packages' => $packages]);
     }
 
     /**

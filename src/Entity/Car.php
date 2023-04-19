@@ -57,10 +57,16 @@ class Car
      */
     private $feature;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Wishlist::class, mappedBy="car")
+     */
+    private $wishlists;
+
 
     public function __construct()
     {
         $this->bookings = new ArrayCollection();
+        $this->wishlists = new ArrayCollection();
     }
 
 
@@ -175,4 +181,35 @@ class Car
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, Wishlist>
+     */
+    public function getWishlists(): Collection
+    {
+        return $this->wishlists;
+    }
+
+    public function addWishlist(Wishlist $wishlist): self
+    {
+        if (!$this->wishlists->contains($wishlist)) {
+            $this->wishlists[] = $wishlist;
+            $wishlist->setCar($this);
+        }
+
+        return $this;
+    }
+
+    public function removeWishlist(Wishlist $wishlist): self
+    {
+        if ($this->wishlists->removeElement($wishlist)) {
+            // set the owning side to null (unless already changed)
+            if ($wishlist->getCar() === $this) {
+                $wishlist->setCar(null);
+            }
+        }
+
+        return $this;
+    }
+
 }
