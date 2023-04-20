@@ -34,10 +34,6 @@ class Package
      */
     private $packageOptions;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Booking::class, mappedBy="package")
-     */
-    private $bookings;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -47,7 +43,6 @@ class Package
     public function __construct()
     {
         $this->packageOptions = new ArrayCollection();
-        $this->bookings = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -112,36 +107,6 @@ class Package
     public function __toString()
     {
         return $this->getName();
-    }
-
-    /**
-     * @return Collection<int, Booking>
-     */
-    public function getBookings(): Collection
-    {
-        return $this->bookings;
-    }
-
-    public function addBooking(Booking $booking): self
-    {
-        if (!$this->bookings->contains($booking)) {
-            $this->bookings[] = $booking;
-            $booking->setPackage($this);
-        }
-
-        return $this;
-    }
-
-    public function removeBooking(Booking $booking): self
-    {
-        if ($this->bookings->removeElement($booking)) {
-            // set the owning side to null (unless already changed)
-            if ($booking->getPackage() === $this) {
-                $booking->setPackage(null);
-            }
-        }
-
-        return $this;
     }
 
     public function getDistance(): ?string
