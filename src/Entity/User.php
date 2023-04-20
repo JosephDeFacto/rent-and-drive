@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -49,6 +51,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\OneToOne(targetEntity=Booking::class, mappedBy="user", cascade={"persist", "remove"})
      */
     private $booking;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Wishlist::class, mappedBy="user")
+     */
+    private $wishlists;
+
+    public function __construct()
+    {
+        $this->wishlists = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -181,6 +193,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         $this->booking = $booking;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Wishlist>
+     */
+    public function getWishlists(): Collection
+    {
+        return $this->wishlists;
+    }
+
+    public function addWishlist(Wishlist $wishlist): self
+    {
+        if (!$this->wishlists->contains($wishlist)) {
+            $this->wishlists[] = $wishlist;
+            $wishlist->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeWishlist(Wishlist $wishlist): self
+    {
+        if ($this->wishlists->removeElement($wishlist)) {
+            // set the owning side to null (unless already changed)
+            if ($wishlist->getUser() === $this) {
+                $wishlist->setUser(null);
+            }
+        }
 
         return $this;
     }

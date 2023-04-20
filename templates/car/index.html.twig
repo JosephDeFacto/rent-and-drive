@@ -4,6 +4,9 @@
 
 {% block body %}
     <div class="products-content-container">
+        {% for message in app.flashes('success') %}
+            {{ message }}
+        {% endfor %}
         <div class="products-banner" style="background-image: url('/../uploads/banner.jpg')">
             <div class="products-banner-label">
                 <span class="rnd-text label-text linethrough">It's expensive</span>
