@@ -3,6 +3,8 @@
 {% block title %}Show{% endblock %}
 
 {% block body %}
+
+
     <div class="products-content-container ">
         <div class="products-content-main product-page">
 
@@ -18,9 +20,34 @@
             </div>
             <div class="image-row">
                 {% if carInfo.imagePath %}
-                    <img class="product-image" src="{{asset('../' ~ carInfo.imagePath) }}" alt="{{ carInfo.name }}" title="{{ carInfo.name }}">
+                    <img class="product-image show" src="{{asset('../' ~ carInfo.imagePath) }}" alt="{{ carInfo.name }}" title="{{ carInfo.name }}">
                 {% endif %}
             </div>
+            <span class="package-title">Choose KM package</span>
+            <form method="get" action="{{ path('app_car_booking', {'id': carInfo.id}) }}">
+                <div class="product-packages">
+                    {% for package in packages %}
+                        <div class="products-radio-item">
+                            <label class="package-label" for="{{ package.name }}">{{ package.name }}</label>
+                            <input type="radio" id="{{ package.id }}" class="package" name="package" value="{{ package.id }}">
+                            <small>
+                                <span class="package-price">€{{ package.price }} | </span>
+                                <span class="package-km">{{ package.distance}} km </span>
+                                <span class="package-short">per month</span>
+                            </small>
+                        </div>
+                    {% endfor %}
+                    <div class="btn-wrapper">
+                        <button type="submit" class="btn-package-proceed">Proceed</button>
+                    </div>
+                </div>
+            </form>
+
+            <form method="post" action="{{ path('add_to_wishlist', {'id': carInfo.id}) }}">
+                <div class="btn-wrapper">
+                    <input type="submit" class="btn-package-proceed" value="Add to wishlist">
+                </div>
+            </form>
 
             <div class="product-details-title">
                 <span class="rnd-text-span-second bottom-out">Car details</span>
@@ -53,9 +80,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="product-redirect">
+                {#<div class="product-redirect">
                     <a class="product-link link-one" href="{{ path('app_car_booking', {id: carInfo.id}) }}">Book this car</a>
-                </div>
+                </div>#}
             </div>
         </div>
     </div>
