@@ -622,6 +622,32 @@ input[type=checkbox] {
     height: 18px;
 }
 
+form[name=car_booking] {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    top: 100px;
+
+}
+
+.required {
+    display: block;
+    margin: 10px;
+    font-weight: 600;
+    box-shadow: 0 0 2em hsl(231deg 62% 94%);
+}
+
+input[type=number] {
+    padding: 10px;
+    border-radius: 15px;
+}
+
+#car_booking_pickUpDate, #car_booking_returnDate {
+    padding-top: 10px;
+    border-radius: 15px;
+}
+
 .auth-submit {
     margin-top: 20px;
     width: 70px;
