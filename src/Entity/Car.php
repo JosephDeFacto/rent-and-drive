@@ -212,4 +212,17 @@ class Car
         return $this;
     }
 
+    public function getCarAttributes(): array
+    {
+        $data[] = [
+            'id' => $this->getId(),
+            'name' => $this->getName(),
+            'model' => $this->getModel(),
+            'brand' => $this->getBrand(),
+            'vehicleType' => $this->getVehicleType(),
+            'image' => $this->getImagePath(),
+        ];
+
+        return $data;
+    }
 }
