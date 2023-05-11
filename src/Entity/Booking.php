@@ -54,6 +54,11 @@ class Booking
      */
     private $package;
 
+    /**
+     * @ORM\Column(type="smallint", nullable=true)
+     */
+    private $bookingDuration;
+
 
     public function getId(): ?int
     {
@@ -140,6 +145,18 @@ class Booking
     public function setPackage(?Package $package): self
     {
         $this->package = $package;
+
+        return $this;
+    }
+
+    public function getBookingDuration(): ?int
+    {
+        return $this->bookingDuration;
+    }
+
+    public function setBookingDuration(?int $bookingDuration): self
+    {
+        $this->bookingDuration = $bookingDuration;
 
         return $this;
     }
