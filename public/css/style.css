@@ -125,6 +125,7 @@ li {
 .show {
     width: 600px;
     height: 310px;
+    margin-top: 8px;
 }
 
 .products-columns {
@@ -156,6 +157,7 @@ li {
     font-weight: bolder;
     text-align: center;
     font-family: 'Montserrat', sans-serif;
+    margin-left: 12.5px;
 }
 
 .product-redirect {
@@ -422,6 +424,10 @@ li {
     min-height: 100%;
 }
 
+.checkout-container {
+    display: flex;
+}
+
 .btn-filters {
     display: none;
 }
@@ -576,6 +582,7 @@ li {
     border-radius: 30px;
     height: 30vh;
     margin-top: 100px;
+    flex: 1;
 }
 
 .register {
@@ -627,8 +634,7 @@ form[name=car_booking] {
     flex-direction: column;
     align-items: center;
     position: relative;
-    top: 100px;
-
+    top: 40px;
 }
 
 .required {
@@ -650,7 +656,6 @@ input[type=number] {
 
 .auth-submit {
     margin-top: 20px;
-    width: 70px;
     background: #3e4684;
     color: white;
     font-weight: 600;
@@ -744,7 +749,7 @@ input[type=number] {
 
 .product-packages {
     position: absolute;
-    top: 34%;
+    top: 25%;
     display: flex;
     left: 45%;
 }
@@ -755,7 +760,7 @@ input[type=number] {
     font-family: 'Montserrat';
     font-size: 30px;
     position: absolute;
-    top: 25%;
+    top: 15%;
     right: 30%;
     width: 20%;
 }
@@ -765,6 +770,7 @@ input[type=number] {
     bottom: 10px;
     bottom: 2px;
     right: 10px;
+    font-weight: bolder;
 }
 
 .product-package {
@@ -785,6 +791,8 @@ input[type=number] {
     font-family: 'Montserrat';
     color: white;
     cursor: pointer;
+    border-radius: 20px;
+    font-weight: 800;
 }
 
 .products-radio-item {
@@ -862,4 +870,117 @@ input[type=number] {
     font-family: 'Montserrat';
     font-size: initial;
     font-weight: normal;
+}
+
+.warning-box {
+    background: #5bc0de;
+    padding: 10px;
+    width: 100%;
+    border-radius: 20px;
+}
+
+.warning-alert {
+    display: block;
+    text-align: center;
+    color: white;
+}
+
+.btn-proceed {
+    margin-top: 80px;
+    border-radius: 20px;
+}
+
+.checkout-title {
+    font-family: 'Montserrat', sans-serif;
+    text-align: center;
+}
+
+.checkout-info {
+    position: relative;
+    flex: 1;
+    width: 50%;
+    height: 100%;
+    margin-top: 255px;
+}
+
+.package-notice {
+    position: absolute;
+    top: 15%;
+    right: 20%;
+    padding: 10px;
+    background: red;
+    border-radius: 50px;
+    font-family: 'Montserrat', sans-serif;
+    color: white;
+}
+
+.required {
+    text-align: center;
+}
+
+.label-returnDate {
+    text-align: center;
+}
+
+.car_booking_returnDate {
+    text-align: center;
+    margin: 10px;
+}
+
+.color-primary {
+    background: #0275d8;
+    color: white;
+    border-radius: 25px;
+}
+
+.bigger {
+    width: 100%;
+    border-radius: 20px;
+    height: initial;
+}
+
+.checkout-column {
+    padding: 10px;
+    font-family: 'Montserrat';
+    letter-spacing: 1.5px;
+    box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.3);
+    filter: drop-shadow(5px 5px 5px rgba(0,0,0,0.3));
+}
+
+.checkout-row {
+    margin: 10px;
+    text-align: center;
+}
+
+.checkout-product-description {
+    color: black;
+}
+
+.adds-checkout-info {
+    color: red;
+    font-size: 13.5px;
+    width: 100px;
+    display: block;
+}
+
+.underline {
+    text-decoration: underline;
+    font-variant-numeric: tabular-nums;
+}
+
+.product-show {
+    width: 50%;
+    display: flex;
+    box-shadow: none;
+}
+
+.form-input {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5px;
+}
+
+.package-info {
+    font-weight: 600;
 }

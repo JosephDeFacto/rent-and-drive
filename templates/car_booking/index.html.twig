@@ -3,9 +3,111 @@
 {% block title %}Hello CarBookingController!{% endblock %}
 
 {% block body %}
+    <div class="products-content-container checkout-container">
+        <div class="auth-container register">
+            <div class="title-container">
+                <h2 class="checkout-title">Additional checkout information</h2>
+            </div>
+            {{ form_start(form) }}
+                {{ form_row(form.pickUpDate) }}
+                <div>
 
-    {{ form_start(form) }}
+                    <span class="adds-checkout-info"><sup>*</sup>Since you set booking duration for {{ bookingDuration }} {{ bookingDuration == 1 ? 'month' : 'months' }}, select pick-up date, so we can calculate return date of your rent.</span>
+                    <label class="required label-returnDate">Return date</label>
+                    <div class="car_booking_returnDate color-primary"></div>
+                </div>
+            {{ form_end(form) }}
 
-    {{ form_end(form) }}
+            <script>
+                const pickUpMonth = document.getElementById('car_booking_pickUpDate_month');
+                const pickUpYear = document.getElementById('car_booking_pickUpDate_year');
+                const pickUpDay = document.getElementById('car_booking_pickUpDate_day');
+                const getDateChange = () => {
+                    const pickUpDate = new Date(`${pickUpMonth.value} ${pickUpDay.value}, ${pickUpYear.value}`);
 
+                    const bookingDuration = {{ bookingDuration }};
+
+                    const returnDate = new Date(pickUpDate);
+                    returnDate.setMonth(returnDate.getMonth() + bookingDuration);
+
+                    const year = returnDate.getFullYear();
+
+                    // add leading zeros if necessary
+                    const month = String(returnDate.getMonth() + 1).padStart(2, '0');
+                    const day = String(returnDate.getDate()).padStart(2, '0');
+
+                    const returnDateFormatted = `${year}-${month}-${day}`;
+
+                    const returnDateContainer = document.querySelector('.car_booking_returnDate').textContent = returnDateFormatted;
+                }
+
+                pickUpDay.addEventListener('change', getDateChange);
+                pickUpMonth.addEventListener('change', getDateChange);
+                pickUpYear.addEventListener('change', getDateChange);
+            </script>
+        </div>
+
+        <div class="checkout-info">
+            <img class="product-image bigger" src="{{asset('../' ~ carAttributes[0].image) }}" alt="{{ carAttributes[0].name }}" title="{{ carAttributes[0].name }}">
+            <div class="checkout-column">
+                <div class="checkout-row">
+                    <span class="checkout-product-description">
+                        Name:
+                    </span>
+                    {{ carAttributes[0].name }}
+                </div>
+
+                <div class="checkout-row">
+                     <span class="checkout-product-description">
+                        Model:
+                    </span>
+                    {{ carAttributes[0].model }}
+                </div>
+
+                <div class="checkout-row">
+                     <span class="checkout-product-description">
+                        Vehicle Type:
+                    </span>
+                    {{ carAttributes[0].vehicleType.nameType }}
+                </div>
+
+                <div class="checkout-row">
+                     <span class="checkout-product-description">
+                        Package:
+                    </span>
+                    {{ selectedPackage.getName }}
+                </div>
+
+                <div class="checkout-row">
+                     <span class="checkout-product-description">
+                        Price:
+                    </span>
+                    {{ selectedPackage.getPrice|number_format(2, '.', ',') }}€
+                </div>
+
+                <div class="checkout-row">
+                     <span class="checkout-product-description">
+                        Distance per month:
+                    </span>
+                    {{ selectedPackage.getDistance }}km
+                </div>
+
+                <div class="checkout-row">
+                     <span class="checkout-product-description">
+                        Booking duration:
+                    </span>
+                    {{ bookingDuration }} months
+                </div>
+
+                <div class="checkout-row">
+                     <span class="checkout-product-description">
+                        Total price:
+                    </span>
+                    {% set totalPrice = selectedPackage.getPrice * bookingDuration %}
+                    <span class="checkout-product-description underline">{{ totalPrice|number_format(2, '.', ',') }}€</span>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
+

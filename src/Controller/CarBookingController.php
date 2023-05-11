@@ -36,6 +36,22 @@ class CarBookingController extends AbstractController
     public function index(Request $request, Car $car): Response
     {
         $package = $request->query->get('package');
+
+        $months = $request->query->get('months', []);
+
+        $bookingDuration = 0;
+        if (isset($months)) {
+            foreach ($months as $month) {
+                if ($month !== "") {
+                    $bookingDuration += (int)$month;
+                }
+            }
+        }
+
+        if (!$package) {
+            $this->addFlash('warning', 'Please select package');
+            return $this->redirectToRoute('car_show', ['id' => $car->getId()]);
+        }
         $selectedPackage = $this->packageRepository->find($package);
 
         $booking = new Booking();
@@ -45,14 +61,21 @@ class CarBookingController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
+
             $booking->setUser($this->getUser());
             $booking->setCar($this->carRepository->find($car));
             $booking->setPickUpDate($form->get('pickUpDate')->getData());
-            $booking->setReturnDate($form->get('returnDate')->getData());
+            //$booking->setReturnDate($form->get('returnDate')->getData());
+
+            $returnDate = clone $booking->getPickUpDate();
+            $returnDate->add(new \DateInterval('P' . $bookingDuration . 'M'));
+
+            $booking->setReturnDate($returnDate);
+
             $booking->setDriverAge($form->get('driverAge')->getData());
             $booking->setDriverLicenseNumber($form->get('driverLicenseNumber')->getData());
             $booking->setPackage($selectedPackage);
-
+            $booking->setBookingDuration($bookingDuration);
             $this->entityManager->persist($booking);
             $this->entityManager->flush();
 
@@ -62,6 +85,10 @@ class CarBookingController extends AbstractController
 
         return $this->render('car_booking/index.html.twig', [
             'form' => $form->createView(),
+            'carAttributes' => $car->getCarAttributes(),
+            'selectedPackage' => $selectedPackage,
+            'bookingDuration' => $bookingDuration,
         ]);
     }
+
 }

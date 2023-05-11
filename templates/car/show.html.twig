@@ -7,13 +7,20 @@
 
     <div class="products-content-container ">
         <div class="products-content-main product-page">
+            {% if app.flashes('warning') is defined %}
+                {% for warning in app.flashes('warning') %}
+                    <div class="warning-box">
+                        <span class="warning-alert">{{ warning }}</span>
+                    </div>
+                {% endfor %}
+            {% endif %}
 
-            <div class="product-row">
+            <div class="product-row product-show">
                 <div class="product name one">
                     {{ carInfo.name }}
                 </div>
             </div>
-            <div class="product-row">
+            <div class="product-row product-show">
                 <div class="product model one">
                     {{ carInfo.model }}
                 </div>
@@ -24,21 +31,25 @@
                 {% endif %}
             </div>
             <span class="package-title">Choose KM package</span>
+            <span class="package-notice">Please choose one</span>
             <form method="get" action="{{ path('app_car_booking', {'id': carInfo.id}) }}">
                 <div class="product-packages">
                     {% for package in packages %}
                         <div class="products-radio-item">
                             <label class="package-label" for="{{ package.name }}">{{ package.name }}</label>
                             <input type="radio" id="{{ package.id }}" class="package" name="package" value="{{ package.id }}">
+
                             <small>
-                                <span class="package-price">€{{ package.price }} | </span>
+                                <span class="package-price">€{{ package.price|number_format(2, '.', ',') }} | </span>
                                 <span class="package-km">{{ package.distance}} km </span>
                                 <span class="package-short">per month</span>
                             </small>
+                            <br>
+                            <small><span class="package-info">Select number of months:</span> <input type="number" class="form-input" name="months[]" min="1" max="6"></small>
                         </div>
                     {% endfor %}
                     <div class="btn-wrapper">
-                        <button type="submit" class="btn-package-proceed">Proceed</button>
+                        <button type="submit" class="btn-package-proceed btn-proceed">Proceed</button>
                     </div>
                 </div>
             </form>
@@ -86,5 +97,16 @@
             </div>
         </div>
     </div>
+
+    <script>
+        const warningBox = document.querySelector('.warning-box');
+
+        setTimeout(() => {
+            if (warningBox) {
+                warningBox.style.display = 'none';
+            }
+
+        }, 2000);
+    </script>
 
 {% endblock %}
