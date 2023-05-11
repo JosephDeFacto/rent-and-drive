@@ -54,6 +54,8 @@ class CarBookingController extends AbstractController
         }
         $selectedPackage = $this->packageRepository->find($package);
 
+        $totalPrice = $selectedPackage->getPrice() * $bookingDuration;
+
         $booking = new Booking();
 
         $form = $this->createForm(CarBookingType::class, $booking);
@@ -76,6 +78,7 @@ class CarBookingController extends AbstractController
             $booking->setDriverLicenseNumber($form->get('driverLicenseNumber')->getData());
             $booking->setPackage($selectedPackage);
             $booking->setBookingDuration($bookingDuration);
+            $booking->setTotalPrice($totalPrice);
             $this->entityManager->persist($booking);
             $this->entityManager->flush();
 

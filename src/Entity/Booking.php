@@ -59,6 +59,11 @@ class Booking
      */
     private $bookingDuration;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $totalPrice;
+
 
     public function getId(): ?int
     {
@@ -157,6 +162,18 @@ class Booking
     public function setBookingDuration(?int $bookingDuration): self
     {
         $this->bookingDuration = $bookingDuration;
+
+        return $this;
+    }
+
+    public function getTotalPrice(): ?int
+    {
+        return $this->totalPrice;
+    }
+
+    public function setTotalPrice(?int $totalPrice): self
+    {
+        $this->totalPrice = $totalPrice;
 
         return $this;
     }
