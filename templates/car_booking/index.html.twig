@@ -4,47 +4,19 @@
 
 {% block body %}
     <div class="products-content-container checkout-container">
-        <div class="auth-container register">
+        <div class="auth-container register adds-checkout-container">
             <div class="title-container">
                 <h2 class="checkout-title">Additional checkout information</h2>
             </div>
             {{ form_start(form) }}
                 {{ form_row(form.pickUpDate) }}
                 <div>
-
                     <span class="adds-checkout-info"><sup>*</sup>Since you set booking duration for {{ bookingDuration }} {{ bookingDuration == 1 ? 'month' : 'months' }}, select pick-up date, so we can calculate return date of your rent.</span>
                     <label class="required label-returnDate">Return date</label>
                     <div class="car_booking_returnDate color-primary"></div>
                 </div>
             {{ form_end(form) }}
 
-            <script>
-                const pickUpMonth = document.getElementById('car_booking_pickUpDate_month');
-                const pickUpYear = document.getElementById('car_booking_pickUpDate_year');
-                const pickUpDay = document.getElementById('car_booking_pickUpDate_day');
-                const getDateChange = () => {
-                    const pickUpDate = new Date(`${pickUpMonth.value} ${pickUpDay.value}, ${pickUpYear.value}`);
-
-                    const bookingDuration = {{ bookingDuration }};
-
-                    const returnDate = new Date(pickUpDate);
-                    returnDate.setMonth(returnDate.getMonth() + bookingDuration);
-
-                    const year = returnDate.getFullYear();
-
-                    // add leading zeros if necessary
-                    const month = String(returnDate.getMonth() + 1).padStart(2, '0');
-                    const day = String(returnDate.getDate()).padStart(2, '0');
-
-                    const returnDateFormatted = `${year}-${month}-${day}`;
-
-                    const returnDateContainer = document.querySelector('.car_booking_returnDate').textContent = returnDateFormatted;
-                }
-
-                pickUpDay.addEventListener('change', getDateChange);
-                pickUpMonth.addEventListener('change', getDateChange);
-                pickUpYear.addEventListener('change', getDateChange);
-            </script>
         </div>
 
         <div class="checkout-info">
@@ -109,5 +81,7 @@
             </div>
         </div>
     </div>
+
+    <script src="../../public/assets/booking.js"></script>
 {% endblock %}
 
