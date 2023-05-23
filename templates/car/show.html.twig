@@ -48,14 +48,14 @@
                             <small><span class="package-info">Select number of months:</span> <input type="number" class="form-input" name="months[]" min="1" max="6"></small>
                         </div>
                     {% endfor %}
-                    <div class="btn-wrapper">
+                    <div class="btn-wrapper btn-responsive-submit">
                         <button type="submit" class="btn-package-proceed btn-proceed">Proceed</button>
                     </div>
                 </div>
             </form>
 
             <form method="post" action="{{ path('add_to_wishlist', {'id': carInfo.id}) }}">
-                <div class="btn-wrapper">
+                <div class="btn-wrapper btn-responsive-wishlist">
                     <input type="submit" class="btn-package-proceed" value="Add to wishlist">
                 </div>
             </form>
@@ -91,22 +91,10 @@
                         </div>
                     </div>
                 </div>
-                {#<div class="product-redirect">
-                    <a class="product-link link-one" href="{{ path('app_car_booking', {id: carInfo.id}) }}">Book this car</a>
-                </div>#}
             </div>
         </div>
     </div>
 
-    <script>
-        const warningBox = document.querySelector('.warning-box');
-
-        setTimeout(() => {
-            if (warningBox) {
-                warningBox.style.display = 'none';
-            }
-
-        }, 2000);
-    </script>
+   <script src="../assets/warning.js"></script>
 
 {% endblock %}
