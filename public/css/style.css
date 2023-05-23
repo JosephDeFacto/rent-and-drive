@@ -250,6 +250,9 @@ li {
 @media only screen and (min-width: 1808px){
     .sidebar {
         display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 50px;
     }
 }
 
@@ -309,8 +312,10 @@ li {
     }
 
     .status {
-        font-size: 12px;
+        font-size: 10px;
         font-weight: 700;
+        left: 90px !important;
+        bottom: 148px !important;
     }
 
     .responsive .nav-top-item {
@@ -384,6 +389,10 @@ li {
         border-radius: 5px;
     }
 
+    .primary {
+        margin-left: 50px !important;
+    }
+
     .filter-options-content {
         font-size: 22px;
     }
@@ -407,6 +416,7 @@ li {
 
     .product-details-title {
         margin-right: 0 !important;
+        margin-top: 100px;
     }
 
     .product-details {
@@ -417,6 +427,79 @@ li {
 
     .product-details-column {
         height: 50px !important
+    }
+
+    .image-row {
+        margin: 0 !important;
+        width: 100%;
+    }
+
+    .show {
+        width: 100%;
+    }
+
+    .product-show {
+        justify-content: center;
+    }
+
+    .product-packages {
+        width: 100%;
+        left: 0 !important;
+        display: block !important;
+        position: relative !important;
+        margin-top: 10px;
+    }
+
+    .package-title {
+        right: 20% !important;
+        width: 20%;
+        font-size: 15px !important;
+        position: relative !important;
+    }
+
+    .package-notice {
+        top: 17% !important;
+        padding: 5px !important;
+        margin-top: 5px;
+    }
+
+    .btn-responsive-submit {
+        right: 0 !important;
+        top: 20px !important;
+    }
+
+    .btn-responsive-wishlist {
+        right: 0 !important;
+    }
+
+    .btn-proceed {
+        margin-top: 0 !important;
+        margin-left: auto;
+        margin-right: auto;
+        display: block
+    }
+
+    .rnd-footer {
+        margin-top: 50%;
+        height: fit-content !important;
+    }
+
+    .bottom-out  {
+        top: 25px;
+    }
+
+    .products-radio-item {
+        margin: 10px 0;
+    }
+
+    .adds-checkout-container {
+        height: 90vh !important;
+        margin-top: 0 !important;
+    }
+
+    .checkout-info {
+        width: 100% !important;
+        margin-top: 150px !important;
     }
 }
 
@@ -873,7 +956,7 @@ input[type=number] {
 }
 
 .warning-box {
-    background: #5bc0de;
+    background: #d9534f;
     padding: 10px;
     width: 100%;
     border-radius: 20px;
@@ -983,4 +1066,18 @@ input[type=number] {
 
 .package-info {
     font-weight: 600;
+}
+
+.success-box {
+    background: #5cb85c;
+    padding: 10px;
+    width: 100%;
+    border-radius: 20px;
+    margin-top: 20px;
+}
+
+.success-alert {
+    display: block;
+    text-align: center;
+    color: white;
 }
