@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Car;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\DBAL\Exception;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -41,6 +42,7 @@ class CarRepository extends ServiceEntityRepository
 
     public function filterWithOr($vehicleType = null, $brand = null): array
     {
+
         return $this->createQueryBuilder('c')
             ->andWhere('c.vehicleType = :vehicleType')
             ->orWhere('c.brand = :brand')
@@ -50,6 +52,23 @@ class CarRepository extends ServiceEntityRepository
             ->getResult()
             ;
     }
+
+
+    /**
+     * @throws Exception
+     */
+    public function search($name): array
+    {
+
+        $connection = $this->getEntityManager()->getConnection();
+        $query = "SELECT * FROM car WHERE name LIKE '%$name%'";
+        $stmt = $connection->prepare($query);
+        $result = $stmt->executeQuery();
+
+        return $result->fetchAllAssociative();
+
+    }
+
 
 
 //    /**

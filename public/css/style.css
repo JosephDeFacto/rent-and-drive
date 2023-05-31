@@ -1081,3 +1081,22 @@ input[type=number] {
     text-align: center;
     color: white;
 }
+
+.searchbox-wrapper
+{
+    position: relative;
+    bottom: 90%;
+}
+
+.error-message, .empty-results {
+    font-size: 25px;
+    font-weight: 800;
+    font-family: 'Montserrat', sans-serif;
+    position: relative;
+    left: 50%;
+    color: #d9534f;
+}
+
+input[type=search], input[type=submit] {
+    cursor: pointer;
+}

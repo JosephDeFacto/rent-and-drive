@@ -17,10 +17,19 @@
             </div>
         {% endfor %}
 
+        <div class="container my-md-4">
+            <div class="d-flex justify-content-between">
+                <form id="searchForm" action="{{ path('app_search') }}" method="GET">
+                    <input type="search" name="q" id="searchQuery" placeholder="Search...">
+                    <input type="submit" value="Submit">
+                </form>
+            </div>
+        </div>
+
         <button type="button" class="btn-filters">Filters</button>
 
         <div id="filter-modal" class="modal">
-                <span class="modal-close">&times;</span>
+            <span class="modal-close">&times;</span>
         </div>
 
         <div class="products-content-main">
@@ -43,6 +52,7 @@
                         </div>
                     {% endfor %}
                 {% endif %}
+
             </div>
             <div class="sidebar">
                 <div class="filter-container absolute-left">
@@ -91,7 +101,10 @@
             </div>
         </div>
     </div>
-    <script src="../assets/filter.js"></script>
+
+    <script src="../assets/filter.mjs" type="module"></script>
+    <script src="../assets/success.js"></script>
+    <script src="../assets/search.mjs" type="module"></script>
 
 {% endblock %}
 

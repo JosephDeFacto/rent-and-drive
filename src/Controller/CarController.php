@@ -7,20 +7,21 @@ use App\Repository\CarRepository;
 use App\Repository\PackageRepository;
 use App\Repository\VehicleTypeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class CarController extends AbstractController
 {
-
     private CarRepository $carRepository;
     private VehicleTypeRepository $vehicleTypeRepository;
     private BrandRepository $brandRepository;
     private PackageRepository $packageRepository;
 
 
-
-    public function __construct(CarRepository $carRepository, BrandRepository $brandRepository, VehicleTypeRepository $vehicleTypeRepository, PackageRepository $packageRepository)
+    public function __construct(CarRepository $carRepository, BrandRepository $brandRepository,
+                                VehicleTypeRepository $vehicleTypeRepository,
+                                PackageRepository $packageRepository)
     {
         $this->carRepository = $carRepository;
         $this->brandRepository = $brandRepository;
@@ -34,9 +35,7 @@ class CarController extends AbstractController
     public function index(): Response
     {
         $cars = $this->carRepository->findAll();
-
         $vehicleTypes = $this->vehicleTypeRepository->findAll();
-
         $brands = $this->brandRepository->findAll();
 
         return $this->render('car/index.html.twig', [
@@ -47,7 +46,7 @@ class CarController extends AbstractController
     }
 
     /**
-     * @Route("/show/{id}", name="car_show", methods={"GET"})
+     * @Route("/show/{id<\d+>}", name="car_show", methods={"GET"})
      */
     public function show($id): Response
     {
@@ -61,7 +60,7 @@ class CarController extends AbstractController
     /**
      * @Route("/cars/clear-filters/", name="clear_filter")
      */
-    public function clearFilters(): \Symfony\Component\HttpFoundation\RedirectResponse
+    public function clearFilters(): RedirectResponse
     {
         $url = $this->generateUrl('app_cars');
         return $this->redirect($url);

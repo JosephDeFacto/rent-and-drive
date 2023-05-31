@@ -4,12 +4,14 @@ namespace App\Service;
 
 use App\Repository\CarRepository;
 use App\Response\CarResponseTransformerDataTransformer;
+use Doctrine\DBAL\Exception;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
-class CarFilterAjax
+class CarSearchAjax
 {
     private CarRepository $carRepository;
+
     private CarResponseTransformerDataTransformer $transformer;
 
     public function __construct(CarRepository $carRepository, CarResponseTransformerDataTransformer $transformer)
@@ -18,18 +20,24 @@ class CarFilterAjax
         $this->transformer = $transformer;
     }
 
-
-    public function filterCars(Request $request, array $criteria): JsonResponse
+    /**
+     * @throws Exception
+     */
+    public function searchCars(Request $request, $criteria): JsonResponse
     {
-
         if ($request->isXmlHttpRequest()) {
-            $cars = $this->carRepository->findBy($criteria);
+            $searchedCars = $this->carRepository->search($criteria);
         }
 
         $response = [];
-        if (isset($cars)) {
-            foreach ($cars as $car) {
+        if (isset($searchedCars)) {
+            foreach ($searchedCars as $car) {
+                if (is_array($car)) {
+                    $car = $this->carRepository->find($car['id']);
+                }
+
                 $response[] = $this->transformer->responseData($car);
+
             }
         }
 
@@ -37,7 +45,6 @@ class CarFilterAjax
             return new JsonResponse($response, 200);
         }
 
-        return new JsonResponse(['message' => 'Car currently does not exists', 404]);
+        return new JsonResponse(['message' => 'Searching results not found'], 404);
     }
-
 }

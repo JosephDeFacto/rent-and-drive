@@ -11,7 +11,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class WishlistController extends AbstractController
 {
-
     private EntityManagerInterface $entityManager;
 
     public function __construct(EntityManagerInterface $entityManager)
@@ -19,7 +18,7 @@ class WishlistController extends AbstractController
         $this->entityManager = $entityManager;
     }
     /**
-     * @Route("/wishlist/add/{id}", name="add_to_wishlist")
+     * @Route("/wishlist/add/{id<\d+>}", name="add_to_wishlist")
      */
     public function addToWishlist(Car $car): Response
     {
@@ -32,7 +31,7 @@ class WishlistController extends AbstractController
         $this->entityManager->persist($wishlist);
         $this->entityManager->flush();
 
-        $this->addFlash('success', 'Car successfully booked!');
+        $this->addFlash('success', 'Car added to wishlist!');
         return $this->redirectToRoute('app_cars');
     }
 }

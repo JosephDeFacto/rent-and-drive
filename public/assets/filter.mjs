@@ -1,9 +1,9 @@
+import sendAjaxCall from "./ajaxCall.mjs";
+
 let filter = () => {
     $('form').submit(function (event) {
-
-        event.preventDefault();
-
         let productColumns = $(".products-columns");
+        event.preventDefault();
 
         let vehicleType = $('input[type=checkbox][data-vehicle-type]:checked').map(function() { return $(this).val();}).get();
         let brand = $('input[type=checkbox][data-vehicle-brand]:checked').map(function() {
@@ -11,63 +11,65 @@ let filter = () => {
         }).get();
 
 
-        $.ajax({
-            //url: "{{ path('filter_api') }}?vehicleType=" + vehicleType + "&brand=" + brand,
-            url: "/filter?vehicleType=" + vehicleType + "&brand=" + brand,
-            dataType: 'json',
-            method: 'GET',
-            data: { vehicleType: vehicleType, brand: brand },
+        //let url = "/cars/search";
+        let url =  "/filter?vehicleType=" + vehicleType + "&brand=" + brand;
+        let method = "GET";
+        let dataType = 'json';
+        let data = { vehicleType: vehicleType, brand: brand };
 
-            success: function (data) {
-                productColumns.empty();
+        let success = (data) => {
 
-                let ajaxResults = '';
-                data.forEach(function(car) {
+            productColumns.html("");
+            const elements = data.map((car) => {
 
-                    let url = `{{ path('car_show', {'id': 'car.id'}) }}`.replace('car.id', car.id);
+                //const url = `/show/${car.id}`;
+                const url =  "/filter?vehicleType=" + vehicleType + "&brand=" + brand;
+                const imagePath = car.imagePath ?? '';
 
-                    ajaxResults += '<div class="product-row">';
-                    ajaxResults += '<div class="product name one">' + car.name + '</div>';
-                    ajaxResults += '<div class="product model one">' + car.model + '</div>';
-                    ajaxResults += '<div class="image-row">';
-                    if (car.imagePath) {
-                        let imagePath = car.imagePath;
-                        ajaxResults += '<img class="product-image" id="car-image-' + car.id + '" src="' + imagePath + '" alt="' + car.name + '" title="' + car.name + '">';
-                        ajaxResults += '<span class="status">' + car.availability + '</span>';
-                    }
-                    ajaxResults += '</div>';
+                return `
+                    <div class="product-row">
+                        <div class="product name one">${car.name}</div>
+                        <div class="product model one">${car.model}</div>
+                        <div class="image-row">
+                            ${car.imagePath ? `<a href="${url}"><img class="product-image" id="car-image-${car.id}" src="${imagePath}" alt="${car.name}" title="${car.name}"></a>` : ''}
+                            <span class="status">${car.availability}</span>
+                        </div>
+                        <div class="product-redirect"></div>
+                       </div>
+                `;
+            });
+            productColumns.html(elements.join(''));
 
-                    ajaxResults += '<div class="product-redirect">';
-                    ajaxResults += '<a class="product-link link-one" href="' + url + '">Select</a>';
-                    ajaxResults += '</div>';
-                    ajaxResults += '</div>';
 
-                })
+            productColumns.html(ajaxResults);
 
-                productColumns.append(ajaxResults);
+            let url = new URL(window.location.href);
 
-                let url = new URL(window.location.href);
+            url.searchParams.set('vehicleType', vehicleType);
 
-                url.searchParams.set('vehicleType', vehicleType);
+            if (!url.searchParams.get('vehicleType')) {
+                url.searchParams.delete('vehicleType');
+            }
 
-                if (!url.searchParams.get('vehicleType')) {
-                    url.searchParams.delete('vehicleType');
-                }
+            if (brand.length > 0) {
+                url.searchParams.set('brand', brand);
+            }
 
-                if (brand.length > 0) {
-                    url.searchParams.set('brand', brand);
-                }
+            window.history.pushState({}, null, url.toString());
 
-                window.history.pushState({}, null, url.toString());
-            },
+        }
+        let error = (xhr, status, error) => {
+            const errMsg = xhr.responseJSON.message;
+            if (xhr.status === 404) {
+                productColumns.html('<div class="error-message">' + errMsg + '</div>');
+            }
+        }
 
-            error: function (xhr, status, error) {
-                console.log(xhr.responseText);
-            },
-        });
+        sendAjaxCall(url, method, dataType, data, success, error);
+
     });
 }
-filter();
+
 
 let clearFilters = () => {
     $("#clear-filters-btn").click(function () {
@@ -96,7 +98,6 @@ let clearFilters = () => {
         })
     })
 }
-clearFilters();
 
 let collapsibleFilters = () => {
 
@@ -117,7 +118,6 @@ let collapsibleFilters = () => {
         }
     });
 }
-collapsibleFilters();
 
 let filterModal = document.getElementById('filter-modal');
 
@@ -136,7 +136,6 @@ let footer = document.querySelector('.rnd-footer');
 filterModal.append(sidebar);
 
 btn.onclick = function () {
-    console.log("clicked");
     filterModal.style.display = "block";
     sidebar.style.display = "block";
 
@@ -174,4 +173,9 @@ window.onclick = function (evt) {
         sidebar.style.display = "none";
     }
 }
+
+filter();
+clearFilters();
+collapsibleFilters();
+
 

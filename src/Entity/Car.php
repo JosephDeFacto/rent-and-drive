@@ -62,7 +62,6 @@ class Car
      */
     private $wishlists;
 
-
     public function __construct()
     {
         $this->bookings = new ArrayCollection();

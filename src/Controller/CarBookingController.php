@@ -6,7 +6,7 @@ use App\Entity\Booking;
 use App\Entity\Car;
 use App\Form\CarBookingType;
 use App\Repository\PackageRepository;
-use App\Requests\RequestDataExtractor;
+use App\Request\RequestDataExtractor;
 use App\Service\BookingProcessor;
 use App\Validator\BookingValidator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

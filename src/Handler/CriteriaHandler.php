@@ -2,7 +2,7 @@
 
 namespace App\Handler;
 
-use App\Requests\RequestDataExtractor;
+use App\Request\RequestDataExtractor;
 
 class CriteriaHandler
 {
